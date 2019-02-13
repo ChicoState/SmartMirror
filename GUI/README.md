@@ -2,10 +2,10 @@
 
 #### Install:
 
-+Python-Shell
-+NodeJs
+* Python-Shell
+* NodeJs
 
 #### Run:
 
-+npm install 
-+npm start
+* npm install 
+* npm start

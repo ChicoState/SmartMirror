@@ -4,22 +4,35 @@
     <meta charset="UTF-8">
     <title>Hello World!</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <link rel="stylesheet" type="text/css" media="screen" href="clock.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    <script src="weather.js"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="css-weather/weather.css"/>
+
+    <!--- Weather Meta Links-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!---<link rel="stylesheet" href="css/main.css">-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css-weather/weather-icons.min.css">
+    <link rel="stylesheet" href="css-weather/weather-icons-wind.min.css">
+    <!--- Weather Meta Links-->
 
   </head>
   <body>
 
-    <!--
-      <h1>Hello World!</h1>
-      All of the Node.js APIs are available in this renderer process. 
-      We are using Node.js <script>document.write(process.versions.node)</script>,
-      Chromium <script>document.write(process.versions.chrome)</script>,
-      and Electron <script>document.write(process.versions.electron)</script>.
-      -->
-
-
-      <div id= "MyClockDisplay" class="clock"> </div>
+    <!-- This will create the current weather icon and temperature-->
+    <div class="container current p-3 mt-2">
+      <div class="clearfix">
+        <div class="visual">
+          <img id="icon" src="icons/conditions/41.svg" width="100" height="100">
+          <div id="temp" class="temp d-inline-block align-top">---</div>
+          <div id="tempScale" class="temp-scale d-inline-block align-top">&#8451;</div>
+        </div>
+        </div>
+    </div>
+    
+    <div id= "MyClockDisplay" class="clock"> </div>
 
       <script>
         // You can also require other files to run in this process
@@ -28,5 +41,12 @@
   </body>
 
   <script src="time.js"></script>
+  <link rel="stylesheet" type="text/css" media="screen" href="clock.css"/>
+
+  <!--- Weather Scripts -->
+  <script src="weather-js/jquery-3.3.1.min.js"></script>
+  <script src="weather-js/site.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+  <!--- Weather Scripts -->
 </html>
 

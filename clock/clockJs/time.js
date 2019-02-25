@@ -12,10 +12,17 @@ function showTime()
 		hours = 12;
 	}
 
-	if(hours > 12)
+	if(hours >= 12)
 	{
-		hours -= 12;
-		sessionID = "PM"
+		if( hours == 12 )
+		{
+			sessionID = "PM"
+		}
+		else
+		{
+			hours -= 12;
+			sessionID = "PM"
+		}
 	}
 
 	hours = (hours < 10) ? "0" + hours : hours;

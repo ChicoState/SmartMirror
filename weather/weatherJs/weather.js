@@ -6,7 +6,9 @@ function loadData(system) {
   var $tempScale = $('#tempScale');
   var inputCity = system;
 
-  var accuweatherApiKey = "eOYiiAjNR0EuRaIGNoxAlXQQLn56cQMb";
+  //var accuweatherApiKey = "eOYiiAjNR0EuRaIGNoxAlXQQLn56cQMb";
+  var accuweatherApiKey = "KrnJm3pGAtha40EFim82KLEqvaikzMeS"; // Accuweather api key2
+  //var accuweatherApiKey = "XVmXE5NJJKoX17t4EucrFusDJSwYcStk"; // My api key
   var locationResourceURL = 'https://dataservice.accuweather.com/locations/v1/cities/search?apikey=' + accuweatherApiKey + '&q=' + inputCity;
 
   $.ajax({
@@ -30,7 +32,8 @@ function loadData(system) {
         var tempScale;
 
         //Get the new icon image. All the image files are located in icons/conditions folder
-        var icon = 'icons/conditions/' + result[0].WeatherIcon + '.svg';
+        var icon = '../weather/icons/conditions/' + result[0].WeatherIcon + '.svg';
+        
 
         //Get the new temperature
         temp = Math.round(result[0].Temperature.Imperial.Value).toString();

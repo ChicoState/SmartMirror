@@ -7,15 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
-    <script src="weather.js"></script>
-    <link rel="stylesheet" type="text/css" media="screen" href="css-weather/weather.css"/>
+    <!--<script src="weather.js"></script>-->
+    <link rel="stylesheet" type="text/css" media="screen" href="../weather/cssWeather/weather.css"/>
 
     <!--- Weather Meta Links-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <!---<link rel="stylesheet" href="css/main.css">-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css-weather/weather-icons.min.css">
-    <link rel="stylesheet" href="css-weather/weather-icons-wind.min.css">
+    <link rel="stylesheet" href="../weather/cssWeather/weather-icons.min.css">
+    <link rel="stylesheet" href="../weather/cssWeather/weather-icons-wind.min.css">
     <!--- Weather Meta Links-->
 
   </head>
@@ -26,28 +26,43 @@
    <div class="container current">
       <div class="clearfix">
         <div class="visual">
-          <img id="icon" src="icons/conditions/41.svg" width="100" height="100">
+          <img id="icon" src="../weather/icons/conditions/42.svg" width="100" height="100">
           <div id="temp" class="temp d-inline-block align-top">---</div>
           <div id="tempScale" class="temp-scale d-inline-block align-top">&#8451;</div>
         </div>
         </div>
     </div>
+      
+   
+
+    <pre id="content" style="white-space: pre-wrap; color: white;"></pre>
+    <!-- Google Calendar --> 
     
     <div id= "MyClockDisplay" class="clock"> </div>
 
-      <script>
+     <!---
+     <script>
         // You can also require other files to run in this process
         require('./renderer.js')
       </script>
+    -->
+    
   </body>
-
-  <script src="time.js"></script>
-  <link rel="stylesheet" type="text/css" media="screen" href="clock.css"/>
+  <script src="../clock/clockJs/time.js"></script>
+  <link rel="stylesheet" type="text/css" media="screen" href="../clock/cssClock/clock.css"/>
 
   <!--- Weather Scripts -->
-  <script src="weather-js/jquery-3.3.1.min.js"></script>
-  <script src="weather-js/site.js"></script>
+  <script src="../weather/weatherJs/jquery-3.3.1.min.js"></script>
+  <script src="../weather/weatherJs/weather.js"></script> 
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   <!--- Weather Scripts -->
+    
+  <!--- Calendar API --> 
+  <script src="../calendar/calendarJs/calendar.js"></script>
+  <script async defer src="https://apis.google.com/js/api.js"
+      onload="this.onload=function(){};handleClientLoad()"
+      onreadystatechange="if (this.readyState === 'complete') this.onload()">
+  </script>
+  <!--- Calendar API -->
 </html>
 

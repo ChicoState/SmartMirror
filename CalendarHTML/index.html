@@ -19,15 +19,15 @@
 
     <script type="text/javascript">
       // Client ID and API key from the Developer Console
-      var CLIENT_ID = '53945102598-439f9228ijva0ukutd1f2dukuonoe77u.apps.googleusercontent.com';
-      var API_KEY = 'AIzaSyAfQ18h7Um581nvvjZMXL1PLc8uYhte2d0';
+      var CLIENT_ID = '815445668951-t0g00gjmpi3vdrdd5kok8lufaujnj91t.apps.googleusercontent.com';
+      var API_KEY = 'AIzaSyC37al7y10gR2xMZb15hdcRjIR6GoVsN1Q';
 
       // Array of API discovery doc URLs for APIs used by the quickstart
-      var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest", "https://www.googleapis.com/discovery/v1/apis/gmail/v1/rest"];
-
+      var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/gmail/v1/rest", "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
+      // "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"
       // Authorization scopes required by the API; multiple scopes can be
       // included, separated by spaces.
-      var SCOPES = ["https://www.googleapis.com/auth/calendar.readonly", "https://www.googleapis.com/auth/gmail.readonly"];
+      var SCOPES = "https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/calendar.readonly";
 
       var authorizeButton = document.getElementById('authorize_button');
       var signoutButton = document.getElementById('signout_button');
@@ -69,8 +69,9 @@
       function updateSigninStatus(isSignedIn) {
         if (isSignedIn) {
           authorizeButton.style.display = 'none';
-          signoutButton.style.display = 'none';
+          signoutButton.style.display = 'block';
           listUpcomingEvents();
+          listLabels();
         } else {
           authorizeButton.style.display = 'block';
           signoutButton.style.display = 'none';

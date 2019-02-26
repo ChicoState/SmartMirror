@@ -142,21 +142,6 @@
        * are found an appropriate message is printed.
        */
       function listLabels() {
-        gapi.client.gmail.users.labels.list({
-          'userId': 'me'
-        }).then(function(response) {
-          var labels = response.result.labels;
-          appendPre('Labels:');
-
-          if (labels && labels.length > 0) {
-            for (i = 0; i < labels.length; i++) {
-              var label = labels[i];
-              appendPre(label.name)
-            }
-          } else {
-            appendPre('No Labels found.');
-          }
-        });
         gapi.client.gmail.users.labels.get({
           'userId': 'me',
           'id': 'INBOX'

@@ -12,8 +12,8 @@
   <body>
 	<p>SmartMirror</p>
     <!--Add buttons to initiate auth sequence and sign out-->
-    <button id="authorize_button" style="display: none;">Authorize</button>
-   <button id="signout_button" style="display: none;">Sign Out</button>
+    <button id="authorize_button" style="display: block;">Authorize</button>
+   <button id="signout_button" style="display: block;">Sign Out</button>
 
     <pre id="content" style="white-space: pre-wrap;"></pre>
 
@@ -27,6 +27,7 @@
 
       // Authorization scopes required by the API; multiple scopes can be
       // included, separated by spaces.
+
       var SCOPES = ["https://www.googleapis.com/auth/calendar.readonly", "https://www.googleapis.com/auth/gmail.readonly"];
 
       var authorizeButton = document.getElementById('authorize_button');
@@ -68,8 +69,8 @@
        */
       function updateSigninStatus(isSignedIn) {
         if (isSignedIn) {
-          authorizeButton.style.display = 'none';
-          signoutButton.style.display = 'none';
+          authorizeButton.style.display = 'block';
+          signoutButton.style.display = 'block';
           listUpcomingEvents();
         } else {
           authorizeButton.style.display = 'block';

@@ -25,12 +25,11 @@ function showTime()
 		}
 	}
 
-	hours = (hours < 10) ? "0" + hours : hours;
+	//hours = (hours < 10) ? "0" + hours : hours;
 	minutes = (minutes < 10) ? "0" + minutes : minutes;
-	//seconds = (seconds < 10) ? "0" + seconds : seconds;
 
-	//var time = hours + ":" + minutes + ":" + seconds + " " + sessionID;
 	var time = hours + ":" + minutes + " " + sessionID;
+	
 
 	document.getElementById("MyClockDisplay").innerText = time;
 	document.getElementById("MyClockDisplay").textContent = time;

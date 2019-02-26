@@ -157,6 +157,13 @@
             appendPre('No Labels found.');
           }
         });
+        gapi.client.gmail.users.labels.get({
+          'userId': 'me',
+          'id': 'INBOX'
+        }).then(function(response) {
+          var inbox = response.result;
+          appendPre(inbox.messagesUnread);
+        });
       }
 
     </script>

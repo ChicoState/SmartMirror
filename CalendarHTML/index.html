@@ -3,7 +3,7 @@
   <head>
     <title>SmartMirror</title>
     <meta charset="utf-8" />
-    <style> 
+    <style>
     body{
       background: white;
     }
@@ -23,11 +23,11 @@
       var API_KEY = 'AIzaSyAfQ18h7Um581nvvjZMXL1PLc8uYhte2d0';
 
       // Array of API discovery doc URLs for APIs used by the quickstart
-      var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
+      var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest", "https://www.googleapis.com/discovery/v1/apis/gmail/v1/rest"];
 
       // Authorization scopes required by the API; multiple scopes can be
       // included, separated by spaces.
-      var SCOPES = "https://www.googleapis.com/auth/calendar.readonly";
+      var SCOPES = ["https://www.googleapis.com/auth/calendar.readonly", "https://www.googleapis.com/auth/gmail.readonly"];
 
       var authorizeButton = document.getElementById('authorize_button');
       var signoutButton = document.getElementById('signout_button');
@@ -127,11 +127,33 @@
               if (!when) {
                 when = event.start.date;
               }
-              
+
               appendPre(event.summary + ' (' + when + ')')
             }
           } else {
             appendPre('No upcoming events found.');
+          }
+        });
+      }
+
+      /**
+       * Print all Labels in the authorized user's inbox. If no labels
+       * are found an appropriate message is printed.
+       */
+      function listLabels() {
+        gapi.client.gmail.users.labels.list({
+          'userId': 'me'
+        }).then(function(response) {
+          var labels = response.result.labels;
+          appendPre('Labels:');
+
+          if (labels && labels.length > 0) {
+            for (i = 0; i < labels.length; i++) {
+              var label = labels[i];
+              appendPre(label.name)
+            }
+          } else {
+            appendPre('No Labels found.');
           }
         });
       }

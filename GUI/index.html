@@ -18,12 +18,21 @@
     <link rel="stylesheet" href="../weather/cssWeather/weather-icons-wind.min.css">
     <!--- Weather Meta Links-->
 
+    <!-- Spotify Stylesheet -->
+    <link rel="stylesheet" href="../spotify/cssSpotify/spotify.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- /Spotify Stylesheet -->
+
+    <!-- Spotify scripts -->
+    <script src='https://cdn.polyfill.io/v2/polyfill.min.js?features=fetch'></script>
+    <script src='https://spotify-player.herokuapp.com/spotify-player.js'></script>
+    <!-- /Spotify Scripts -->
+
   </head>
   <body>
 
     <!-- This will create the current weather icon and temperature-->
-    <!--<div class="container current p-3 mt-2">-->
-   <div class="container current">
+   <div class="weather-container current">
       <div class="clearfix">
         <div class="visual">
           <img id="icon" src="../weather/icons/conditions/42.svg" width="100" height="100">
@@ -35,15 +44,40 @@
 
     <div id= "MyClockDisplay" class="clock"> ---- </div>
 
+
+     <!-- SPOTIFY API SECTION -->
+     <div class="container">
+      <div class="login-container hidden" id="js-login-container">
+        <button class="btn btn--login" id="js-btn-login">Login with Spotify</button>
+      </div>
+      <div class="main-container hidden" id="js-main-container"></div>
+    </div>
+  
+  <div class="container">
+    <div class="main-container hidden" id="js-default-container"></div>
+  </div>
+  <!-- /SPOTIFY API SECTION -->
+
+    
     <!-- GOOGLE API SECTION -->
-    <!--Add buttons to initiate auth sequence and sign out-->
+    <!--Add buttons to initiate auth sequence and sign out
     <button id="authorize_button" style="display: block;">Authorize</button>
    <button id="signout_button" style="display: block;">Sign Out</button>
-
+    
     <pre id="content" style="white-space: pre-wrap;"></pre>
+    -->
     <!-- /GOOGLE API SECTION -->
 
+
+
+
   </body>
+  <!-- Spotify Scripts -->
+  <script  src="../spotify/SpotifyJs/spotify.js"></script>
+  <!--- /Spotify Scripts -->
+
+
+
   <script src="../clock/clockJs/time.js"></script>
   <link rel="stylesheet" type="text/css" media="screen" href="../clock/cssClock/clock.css"/>
 
@@ -52,7 +86,10 @@
   <script src="../weather/weatherJs/weather.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
   <!--- /Weather Scripts -->
+
+  <!-- GOOGLE API SCRIPT -->
   <script type="text/javascript">
+  
     // Client ID and API key from the Developer Console
     var CLIENT_ID = '419483235644-ab0vgt6nukf7a02urhrnrkk070171tu8.apps.googleusercontent.com';
     var API_KEY = 'AIzaSyBQv8aLW7k4G03LlRQ_ewtYV5C00eno95Q';
@@ -193,5 +230,5 @@
     onload="this.onload=function(){};handleClientLoad()"
     onreadystatechange="if (this.readyState === 'complete') this.onload()">
   </script>
-  <!-- GOOGLE API SECTION -->
+  <!-- /GOOGLE API SCRIPT -->
 </html>

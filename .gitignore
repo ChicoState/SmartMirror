@@ -2,3 +2,6 @@
 
 # Dependencies(found in package.json)
 node_modules
+
+#python virtual environment
+venv

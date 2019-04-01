@@ -1,0 +1,10 @@
+#--------------------------------------------------------------------------------
+# These tokens are needed for user authentication.
+# Credentials can be generates via Twitter's Application Management:
+#	https://apps.twitter.com/app/new
+#--------------------------------------------------------------------------------
+
+consumer_key = "RVrCeuKIoJXcY04P3JxDEOFT5"
+consumer_secret = "5G59nLvPvb5psSps91VwTfpLlgnq2P2cwyv9x2R12Gry9p9UNm"
+access_key = "745062020127481856-1s7XWT8gHwi3qyIvzCA2BGExRlPCEui"
+access_secret = "hD3L07PwkhJ7Xtzs84j0s4GbKZmO3GHuySZDmh9RUNUku"

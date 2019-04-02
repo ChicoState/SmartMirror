@@ -27,3 +27,12 @@ python3 mirror.py
 This application uses Gmail, Google Calendar, and Twitter API's. It is useful to note: for the google APIs, you need to enable them first and obtain a tocken.pickle file. 
 You may also need to update the credentials.json file as well.
 The twitter API should work as is using Ali's API key.
+
+
+## To Fix Spotify we need to upgrade its version by installing it directly from the repo
+
+```bash
+pip install git+https://github.com/plamere/spotipy.git --upgrade
+```
+
+In order for Spotify API to get your information, change your USERNAME information in config.py file 

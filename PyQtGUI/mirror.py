@@ -20,8 +20,8 @@ import time
 
 import urllib.request
 import json
-import spotifyLogIn
 
+import spotifyLogIn
 import weather
 
 from PyQt5 import QtWidgets, QtGui, QtCore, QtSvg
@@ -161,18 +161,18 @@ class Example(QWidget):
 
 
         #using gmail api
-        self.mailLabel = QLabel("Unread emails:")
         numMail = getMail()
+        self.mailLabel = QLabel("Unread emails: " + str(numMail))
         self.mail = QLabel(str(numMail))
 
         #using google calendar api
-        self.calendarLabel = QLabel("Calendar Events:")
         calendar = getCalendar()
+        self.calendarLabel = QLabel("Calendar Events:" + "\n" + calendar)
         self.calendar = QLabel(calendar)
 
         #using twitter api
-        self.twitterLabel = QLabel("Twitter Trending:")
         twitterEvents = getTrending()
+        self.twitterLabel = QLabel("Twitter Trending:" + "\n" + twitterEvents)
         self.twitter = QLabel(twitterEvents)
 
         #Using Spotify API
@@ -202,8 +202,8 @@ class Example(QWidget):
 
 
         #self.weather = QLabel(str(weather))
-        #Weather API
-
+        #Weather API\
+        self.tempLabel = QLabel(" ")
 
         # We create a grid layout and set spacing between widgets.
         self.grid = QGridLayout()
@@ -213,38 +213,39 @@ class Example(QWidget):
         #self.lcdTime.setStyleSheet(DEFAULT_STYLE);
         self.labelTime.setStyleSheet(DEFAULT_STYLE);
 
-        self.grid.addWidget(self.labelTime, 1, 0)
+        self.grid.addWidget(self.labelTime, 0, 0)
+        self.grid.addWidget(self.tempLabel, 0, 1)
 
         self.mailLabel.setStyleSheet(DEFAULT_STYLE);
         self.mail.setStyleSheet(DEFAULT_STYLE);
 
-        self.grid.addWidget(self.mailLabel, 2, 0)
-        self.grid.addWidget(self.mail, 2, 1)
+        self.grid.addWidget(self.mailLabel, 3, 0)
+        # self.grid.addWidget(self.mail, 2, 1)
 
         self.calendarLabel.setStyleSheet(DEFAULT_STYLE);
         self.calendar.setStyleSheet(DEFAULT_STYLE);
 
-        self.grid.addWidget(self.calendarLabel, 3, 0)
-        self.grid.addWidget(self.calendar, 3, 1)
+        self.grid.addWidget(self.calendarLabel, 4, 0)
+        # self.grid.addWidget(self.calendar, 3, 1)
 
         self.twitterLabel.setStyleSheet(DEFAULT_STYLE);
         self.twitter.setStyleSheet(DEFAULT_STYLE);
 
-        self.grid.addWidget(self.twitterLabel, 4, 0)
-        self.grid.addWidget(self.twitter, 4, 1)
+        self.grid.addWidget(self.twitterLabel, 5, 0)
+        # self.grid.addWidget(self.twitter, 4, 1)
 
         #Spotify
         self.songs.setStyleSheet(DEFAULT_STYLE);
-        self.grid.addWidget(self.lbl, 5, 0)
-        self.grid.addWidget(self.songs, 5, 1)
-        self.grid.addWidget(self.progress, 6, 0, 1 ,3)
+        self.grid.addWidget(self.lbl, 6, 0)
+        self.grid.addWidget(self.songs, 7, 0)
+        self.grid.addWidget(self.progress, 8, 0, 1 ,1)
         #Spotify
 
         #weather
         self.temp.setStyleSheet(DEFAULT_STYLE);
 
-        self.grid.addWidget(self.temp, 0, 0)
-        self.grid.addWidget(self.iconLabel, 0, 1)
+        self.grid.addWidget(self.temp, 1, 0)
+        self.grid.addWidget(self.iconLabel, 2, 0)
         #weather
 
         self.setLayout(self.grid)
@@ -281,11 +282,12 @@ class Example(QWidget):
         else:
             status = "Stoped:"
 
-        self.songs = QLabel(status + "\n" + data['item']['album']['artists'][0]['name'] + " - " + data['item']['name'])
+        self.songs = QLabel(status + " " + data['item']['album']['artists'][0]['name'] + " - " + data['item']['name'])
 
         self.progress = QProgressBar()
         self.progress.setTextVisible(False)
-        self.progress.setGeometry(30, 40, 200, 25)
+        self.progress.setGeometry(30, 40, 0, 25)
+        self.progress.setFixedWidth(200)
 
         self.progress.setStyleSheet(DEFAULT_STYLE)
 
@@ -294,10 +296,10 @@ class Example(QWidget):
 
         self.songs.setStyleSheet(DEFAULT_STYLE);
 
-        self.grid.addWidget(self.lbl, 5, 0)
-        self.grid.addWidget(self.songs, 5, 1)
+        self.grid.addWidget(self.lbl, 6, 0)
+        self.grid.addWidget(self.songs, 7, 0)
 
-        self.grid.addWidget(self.progress, 6, 0, 1 ,3)
+        self.grid.addWidget(self.progress, 8, 0, 1 ,1)
 
         '''
         self.grid.addWidget(self.lbl, 4, 0)

@@ -16,4 +16,4 @@ CLIENT_SECRET = '62483b38e8514b32ab6fbcde4d68b12f'
 USERNAME = "contreras.andres19"
 
 #Weather Information
-YOUR_API = "XVmXE5NJJKoX17t4EucrFusDJSwYcStk"
+YOUR_API = "KrnJm3pGAtha40EFim82KLEqvaikzMeS"

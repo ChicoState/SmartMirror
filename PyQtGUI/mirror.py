@@ -13,6 +13,7 @@ import config
 
 from PyQt5.QtWidgets import (QWidget, QLabel, QLineEdit, QTextEdit, QGridLayout, QApplication, QLCDNumber)
 from PyQt5.QtCore import QTimer, QTime
+from PyQt5.QtGui import QIcon, QPixmap
 from PyQt5 import Qt
 
 #Spotify Imports
@@ -162,18 +163,30 @@ class Example(QWidget):
 
         #using gmail api
         numMail = getMail()
-        self.mailLabel = QLabel("Unread emails: " + str(numMail))
+        self.mailLabel = QLabel("Unread: " + str(numMail))
         self.mail = QLabel(str(numMail))
+
+        self.mailIcon = QLabel()
+        self.mailIcon.setPixmap(QPixmap("GMAIL.png").scaled(40, 40, Qt.IgnoreAspectRatio, Qt.FastTransformation))
+        # self.mailIcon.scaled(64, 64, Qt.IgnoreAspectRatio, Qt.FastTransformation)
 
         #using google calendar api
         calendar = getCalendar()
-        self.calendarLabel = QLabel("Calendar Events:" + "\n" + calendar)
-        self.calendar = QLabel(calendar)
+        # self.calendarLabel = QLabel("Calendar Events:" + "\n" + calendar)
+        self.calendarLabel = QLabel(calendar)
+        # self.calendar = QLabel(calendar)
+
+        self.calendarIcon = QLabel()
+        self.calendarIcon.setPixmap(QPixmap("CALENDAR.png").scaled(40, 40, Qt.IgnoreAspectRatio, Qt.FastTransformation))
 
         #using twitter api
         twitterEvents = getTrending()
-        self.twitterLabel = QLabel("Twitter Trending:" + "\n" + twitterEvents)
+        # self.twitterLabel = QLabel("Twitter Trending:" + "\n" + twitterEvents)
+        self.twitterLabel = QLabel(twitterEvents)
         self.twitter = QLabel(twitterEvents)
+
+        self.twitterIcon = QLabel()
+        self.twitterIcon.setPixmap(QPixmap("Twitter.png").scaled(60, 40, Qt.IgnoreAspectRatio, Qt.FastTransformation))
 
         #Using Spotify API
 
@@ -219,26 +232,29 @@ class Example(QWidget):
         self.mailLabel.setStyleSheet(DEFAULT_STYLE);
         self.mail.setStyleSheet(DEFAULT_STYLE);
 
-        self.grid.addWidget(self.mailLabel, 3, 0)
+        self.grid.addWidget(self.mailLabel, 4, 0)
+        self.grid.addWidget(self.mailIcon, 3, 0)
         # self.grid.addWidget(self.mail, 2, 1)
 
         self.calendarLabel.setStyleSheet(DEFAULT_STYLE);
-        self.calendar.setStyleSheet(DEFAULT_STYLE);
+        # self.calendar.setStyleSheet(DEFAULT_STYLE);
 
-        self.grid.addWidget(self.calendarLabel, 4, 0)
+        self.grid.addWidget(self.calendarLabel, 6, 0)
+        self.grid.addWidget(self.calendarIcon, 5, 0)
         # self.grid.addWidget(self.calendar, 3, 1)
 
         self.twitterLabel.setStyleSheet(DEFAULT_STYLE);
         self.twitter.setStyleSheet(DEFAULT_STYLE);
 
-        self.grid.addWidget(self.twitterLabel, 5, 0)
+        self.grid.addWidget(self.twitterLabel, 8, 0)
+        self.grid.addWidget(self.twitterIcon, 7, 0)
         # self.grid.addWidget(self.twitter, 4, 1)
 
         #Spotify
         self.songs.setStyleSheet(DEFAULT_STYLE);
-        self.grid.addWidget(self.lbl, 6, 0)
-        self.grid.addWidget(self.songs, 7, 0)
-        self.grid.addWidget(self.progress, 8, 0, 1 ,1)
+        self.grid.addWidget(self.lbl, 8, 5)
+        self.grid.addWidget(self.songs, 9, 5)
+        self.grid.addWidget(self.progress, 10, 5, 1 ,1)
         #Spotify
 
         #weather
@@ -296,10 +312,10 @@ class Example(QWidget):
 
         self.songs.setStyleSheet(DEFAULT_STYLE);
 
-        self.grid.addWidget(self.lbl, 6, 0)
-        self.grid.addWidget(self.songs, 7, 0)
+        self.grid.addWidget(self.lbl, 8, 5)
+        self.grid.addWidget(self.songs, 9, 5)
 
-        self.grid.addWidget(self.progress, 8, 0, 1 ,1)
+        self.grid.addWidget(self.progress, 10, 5, 1 ,1)
 
         '''
         self.grid.addWidget(self.lbl, 4, 0)

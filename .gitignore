@@ -9,3 +9,6 @@ token.pickle
 
 __pycache__/
 .cache-**
+
+#Ignore Spotify Data
+data.json

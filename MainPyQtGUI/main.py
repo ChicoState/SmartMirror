@@ -278,7 +278,7 @@ class Example(QWidget):
         self.songs.setStyleSheet(DEFAULT_STYLE);
         self.grid.addWidget(self.lbl, 9, 5)
         self.grid.addWidget(self.songs, 10, 5)
-        self.grid.addWidget(self.progress, 11, 5, 1 ,1)
+        self.grid.addWidget(self.progress, 10, 6, 1 ,1)
         #Spotify
 
         self.grid.addWidget(self.pictureLabel, 9, 0)
@@ -341,7 +341,7 @@ class Example(QWidget):
         self.grid.addWidget(self.lbl, 9, 5)
         self.grid.addWidget(self.songs, 10, 5)
 
-        self.grid.addWidget(self.progress, 11, 5, 1 ,1)
+        self.grid.addWidget(self.progress, 10, 6, 1 ,1)
 
     def changePicture(self):
         self.pictureIter += 1

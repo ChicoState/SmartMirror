@@ -178,6 +178,14 @@ class Example(QWidget):
         self.timer.timeout.connect(self.showTime)
         self.timer.start(1000) # repeat self.showTime() every 1 sec
 
+        # PICTURES TO LOOP THROUGH SECTION
+        self.pictureIter = 0
+        self.files = ["./pictures/a.PNG", "./pictures/b.PNG", "./pictures/c.PNG"]
+        self.pictureLabel = QLabel()
+        self.pictureLabel.setPixmap(QPixmap(self.files[self.pictureIter]).scaled(200, 200, QtCore.Qt.KeepAspectRatio))
+        self.pictureTimer = QTimer()
+        self.pictureTimer.timeout.connect(self.changePicture)
+        self.pictureTimer.start(8000)
 
         #using gmail api
         numMail = getMail()
@@ -234,7 +242,6 @@ class Example(QWidget):
 
         #self.weather = QLabel(str(weather))
         #Weather API\
-        self.tempLabel = QLabel(" ")
 
         # We create a grid layout and set spacing between widgets.
         self.grid = QGridLayout()
@@ -245,7 +252,6 @@ class Example(QWidget):
         self.labelTime.setStyleSheet(DEFAULT_STYLE);
 
         self.grid.addWidget(self.labelTime, 0, 0)
-        self.grid.addWidget(self.tempLabel, 0, 1)
 
         self.mailLabel.setStyleSheet(DEFAULT_STYLE);
         self.mail.setStyleSheet(DEFAULT_STYLE);
@@ -270,10 +276,12 @@ class Example(QWidget):
 
         #Spotify
         self.songs.setStyleSheet(DEFAULT_STYLE);
-        self.grid.addWidget(self.lbl, 8, 5)
-        self.grid.addWidget(self.songs, 9, 5)
-        self.grid.addWidget(self.progress, 10, 5, 1 ,1)
+        self.grid.addWidget(self.lbl, 9, 5)
+        self.grid.addWidget(self.songs, 10, 5)
+        self.grid.addWidget(self.progress, 11, 5, 1 ,1)
         #Spotify
+
+        self.grid.addWidget(self.pictureLabel, 9, 0)
 
         #weather
         self.temp.setStyleSheet(DEFAULT_STYLE);
@@ -330,11 +338,18 @@ class Example(QWidget):
 
         self.songs.setStyleSheet(DEFAULT_STYLE);
 
-        self.grid.addWidget(self.lbl, 8, 5)
-        self.grid.addWidget(self.songs, 9, 5)
+        self.grid.addWidget(self.lbl, 9, 5)
+        self.grid.addWidget(self.songs, 10, 5)
 
-        self.grid.addWidget(self.progress, 10, 5, 1 ,1)
-        
+        self.grid.addWidget(self.progress, 11, 5, 1 ,1)
+
+    def changePicture(self):
+        self.pictureIter += 1
+        if(self.pictureIter == len(self.files)):
+            self.pictureIter = 0
+        self.pictureLabel.setPixmap(QPixmap(self.files[self.pictureIter]).scaled(200, 200, QtCore.Qt.KeepAspectRatio))
+        self.grid.addWidget(self.pictureLabel, 9, 0)
+
 class Splash(QMainWindow, FROM_SPLASH):
     def __init__(self, parent = None):
         super(Splash, self).__init__(parent)
@@ -349,7 +364,7 @@ class Splash(QMainWindow, FROM_SPLASH):
 
         progress.mysignal.connect(self.progress)
         progress.start()
-        
+
     @pyqtSlot(int)
     def progress(self, i):
         self.progressBar.setValue(i)

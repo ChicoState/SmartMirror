@@ -1,11 +1,12 @@
 import json
 import time
 import urllib.request
-from config import YOUR_API
+# from config import YOUR_API
+from . import config
 
 def get_weather():
 
-    accuweatherApiKey = YOUR_API
+    accuweatherApiKey = config.YOUR_API
     location_id = "Chico"
     locationKey = " "
 

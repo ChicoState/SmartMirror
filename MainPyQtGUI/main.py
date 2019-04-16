@@ -1,36 +1,31 @@
 from __future__ import print_function
-import pickle
-import datetime
-import os.path
-from googleapiclient.discovery import build
-from google_auth_oauthlib.flow import InstalledAppFlow
-from google.auth.transport.requests import Request
 
+import os
 import sys
-from twitter import *
-sys.path.append(".")
-import config
-
-from PyQt5 import Qt
-
 import time
+
+sys.path.append(".")
 
 #Spotify Imports
 import urllib.request
 import json
-import spotifyLogIn
+from api import spotifyLogIn
 
-import weather
+#Weather Imports
+from api import weather
 
-from PyQt5 import QtCore, QtWidgets, QtGui, QtSvg
+#Google API Imports
+from api import googleAPI
 
+#Twitter API Imports
+from api import twitterAPI
+
+#PyQt5 Imports
+from PyQt5 import Qt, QtCore, QtWidgets, QtGui, QtSvg
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.uic import loadUiType
-import os
-import time
-
 
 DEFAULT_STYLE = """
 QWidget{
@@ -51,96 +46,6 @@ QLabel{
 }
 """
 
-
-# If modifying these scopes, delete the file token.pickle.
-SCOPES = ['https://www.googleapis.com/auth/gmail.readonly', 'https://www.googleapis.com/auth/calendar.readonly']
-
-def getMail():
-    """Shows basic usage of the Gmail API.
-    Lists the user's Gmail labels.
-    """
-    creds = None
-    # The file token.pickle stores the user's access and refresh tokens, and is
-    # created automatically when the authorization flow completes for the first
-    # time.
-    if os.path.exists('token.pickle'):
-        with open('token.pickle', 'rb') as token:
-            creds = pickle.load(token)
-    # If there are no (valid) credentials available, let the user log in.
-    if not creds or not creds.valid:
-        if creds and creds.expired and creds.refresh_token:
-            creds.refresh(Request())
-        else:
-            flow = InstalledAppFlow.from_client_secrets_file(
-                'credentials.json', SCOPES)
-            creds = flow.run_local_server()
-        # Save the credentials for the next run
-        with open('token.pickle', 'wb') as token:
-            pickle.dump(creds, token)
-
-    service = build('gmail', 'v1', credentials=creds)
-
-    # Call the Gmail API
-    result = service.users().labels().get(id='INBOX', userId='me').execute()
-    messages = result.get('messagesUnread')
-    return messages
-
-def getCalendar():
-    """Shows basic usage of the Google Calendar API.
-    Prints the start and name of the next 10 events on the user's calendar.
-    """
-    creds = None
-    # The file token.pickle stores the user's access and refresh tokens, and is
-    # created automatically when the authorization flow completes for the first
-    # time.
-    if os.path.exists('token.pickle'):
-        with open('token.pickle', 'rb') as token:
-            creds = pickle.load(token)
-    # If there are no (valid) credentials available, let the user log in.
-    if not creds or not creds.valid:
-        if creds and creds.expired and creds.refresh_token:
-            creds.refresh(Request())
-        else:
-            flow = InstalledAppFlow.from_client_secrets_file(
-                'credentials.json', SCOPES)
-            creds = flow.run_local_server()
-        # Save the credentials for the next run
-        with open('token.pickle', 'wb') as token:
-            pickle.dump(creds, token)
-
-    service = build('calendar', 'v3', credentials=creds)
-
-    # Call the Calendar API
-    now = datetime.datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
-    events_result = service.events().list(calendarId='primary', timeMin=now,
-                                        maxResults=5, singleEvents=True,
-                                        orderBy='startTime').execute()
-    events = events_result.get('items', [])
-    eventlist = ''
-
-    if not events:
-        return 'No upcoming events found.'
-    for event in events:
-        start = event['start'].get('dateTime', event['start'].get('date'))
-        eventlist += str(start) + ' ' + str(event['summary']) + '\n'
-    return eventlist
-
-def getTrending():
-    twitter = Twitter(auth = OAuth(config.access_key,
-                      config.access_secret,
-                      config.consumer_key,
-                      config.consumer_secret))
-    results = twitter.trends.place(_id = 23424977)
-    trendList = ''
-    num = 0
-    for location in results:
-        for trend in location["trends"]:
-            if num < 5:
-                trendList += str(trend["name"]) + '\n'
-            num += 1
-    return trendList
-
-
 #Splash Screen Function for Process Bar
 class ThreadProgress(QThread):
     mysignal = pyqtSignal(int)
@@ -154,10 +59,8 @@ class ThreadProgress(QThread):
             i += 1
 #Splash Screen Function for Process Bar
 
-
 # Splash Screen StyleSheet
 FROM_SPLASH,_ = loadUiType(os.path.join(os.path.dirname(__file__),"splash.ui"))
-
 
 class Example(QWidget):
     def __init__(self):
@@ -188,33 +91,27 @@ class Example(QWidget):
         self.pictureTimer.start(8000)
 
         #using gmail api
-        numMail = getMail()
+        numMail = googleAPI.getMail()
         self.mailLabel = QLabel("Unread: " + str(numMail))
         self.mail = QLabel(str(numMail))
 
         self.mailIcon = QLabel()
-        self.mailIcon.setPixmap(QPixmap("GMAIL.png").scaled(40, 40, Qt.IgnoreAspectRatio, Qt.FastTransformation))
-        # self.mailIcon.scaled(64, 64, Qt.IgnoreAspectRatio, Qt.FastTransformation)
+        self.mailIcon.setPixmap(QPixmap("./icons/GMAIL.png").scaled(40, 40, Qt.IgnoreAspectRatio, Qt.FastTransformation))
 
         #using google calendar api
-        calendar = getCalendar()
-        # self.calendarLabel = QLabel("Calendar Events:" + "\n" + calendar)
+        calendar = googleAPI.getCalendar()
         self.calendarLabel = QLabel(calendar)
-        # self.calendar = QLabel(calendar)
 
         self.calendarIcon = QLabel()
-        self.calendarIcon.setPixmap(QPixmap("CALENDAR.png").scaled(40, 40, Qt.IgnoreAspectRatio, Qt.FastTransformation))
+        self.calendarIcon.setPixmap(QPixmap("./icons/CALENDAR.png").scaled(40, 40, Qt.IgnoreAspectRatio, Qt.FastTransformation))
 
         #using twitter api
-        twitterEvents = getTrending()
-        # self.twitterLabel = QLabel("Twitter Trending:" + "\n" + twitterEvents)
+        twitterEvents = twitterAPI.getTrending()
         self.twitterLabel = QLabel(twitterEvents)
         self.twitter = QLabel(twitterEvents)
 
         self.twitterIcon = QLabel()
-        self.twitterIcon.setPixmap(QPixmap("Twitter.png").scaled(60, 40, Qt.IgnoreAspectRatio, Qt.FastTransformation))
-
-        #Using Spotify API
+        self.twitterIcon.setPixmap(QPixmap("./icons/Twitter.png").scaled(60, 40, Qt.IgnoreAspectRatio, Qt.FastTransformation))
 
         self.lbl = QtWidgets.QLabel(self)
         self.updateSong()
@@ -222,8 +119,6 @@ class Example(QWidget):
         self.musicTimer = QTimer()
         self.musicTimer.timeout.connect(self.updateSong)
         self.musicTimer.start(1000) # repeat self.updateSong() every 1 sec
-
-        #Using Spotify API
 
         #Weather API
         self.weatherIcon = QtWidgets.QLabel(self)
@@ -239,16 +134,10 @@ class Example(QWidget):
 
         self.temp = QLabel("Current Weather condition:" + '\n' + location + ", " + localizedName + "\n" +  str(temp)  + str(tempScale))
 
-
-        #self.weather = QLabel(str(weather))
-        #Weather API\
-
         # We create a grid layout and set spacing between widgets.
         self.grid = QGridLayout()
         self.grid.setSpacing(10)
 
-
-        #self.lcdTime.setStyleSheet(DEFAULT_STYLE);
         self.labelTime.setStyleSheet(DEFAULT_STYLE);
 
         self.grid.addWidget(self.labelTime, 0, 0)
@@ -258,21 +147,17 @@ class Example(QWidget):
 
         self.grid.addWidget(self.mailLabel, 4, 0)
         self.grid.addWidget(self.mailIcon, 3, 0)
-        # self.grid.addWidget(self.mail, 2, 1)
 
         self.calendarLabel.setStyleSheet(DEFAULT_STYLE);
-        # self.calendar.setStyleSheet(DEFAULT_STYLE);
 
         self.grid.addWidget(self.calendarLabel, 6, 0)
         self.grid.addWidget(self.calendarIcon, 5, 0)
-        # self.grid.addWidget(self.calendar, 3, 1)
 
         self.twitterLabel.setStyleSheet(DEFAULT_STYLE);
         self.twitter.setStyleSheet(DEFAULT_STYLE);
 
         self.grid.addWidget(self.twitterLabel, 8, 0)
         self.grid.addWidget(self.twitterIcon, 7, 0)
-        # self.grid.addWidget(self.twitter, 4, 1)
 
         #Spotify
         self.songs.setStyleSheet(DEFAULT_STYLE);
@@ -291,9 +176,6 @@ class Example(QWidget):
         #weather
 
         self.setLayout(self.grid)
-
-
-        # self.setGeometry(300, 300, 350, 300)
 
         self.setWindowTitle('Smart Mirror')
         self.showFullScreen()
@@ -355,7 +237,7 @@ class Splash(QMainWindow, FROM_SPLASH):
         super(Splash, self).__init__(parent)
         QMainWindow.__init__(self)
         self.setupUi(self)
-        pixmap = QPixmap("IMG_2647.JPG")
+        pixmap = QPixmap("./icons/splash/IMG_2647.JPG")
 
         self.splah_image.setPixmap(pixmap.scaled(350, 350))
 
@@ -373,7 +255,6 @@ class Splash(QMainWindow, FROM_SPLASH):
             #exit()                  #Take this out once Splash Screen works
             self.ex = Example()
             self.ex.show()
-
 
 def main():
     app=QApplication(sys.argv)

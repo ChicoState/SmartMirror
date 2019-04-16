@@ -1,17 +1,21 @@
 import json
 import spotipy
 import spotipy.util as util
-from spotipy.oauth2 import SpotifyClientCredentials 
-from config import CLIENT_ID, CLIENT_SECRET, USERNAME
+from spotipy.oauth2 import SpotifyClientCredentials
+# from config import CLIENT_ID, CLIENT_SECRET, USERNAME
+# import sys
+# sys.path.append(".")
+# import config
+from . import config
 
 def get_data():
-    cid = CLIENT_ID
-    csecret = CLIENT_SECRET
+    cid = config.CLIENT_ID
+    csecret = config.CLIENT_SECRET
     redirectURI = 'http://localhost:8888'
 
-    username = USERNAME
+    username = config.USERNAME
 
-    client_credentials_manager = SpotifyClientCredentials(client_id=cid, client_secret=csecret) 
+    client_credentials_manager = SpotifyClientCredentials(client_id=cid, client_secret=csecret)
     sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
     scope = 'user-read-currently-playing'
@@ -28,14 +32,14 @@ def get_data():
 
     if current_track is None:
         data = ""
-        with open("data.json") as f: #in read mode, not in write mode, careful
+        with open("api/data.json") as f: #in read mode, not in write mode, careful
             data = json.load(f)
 
         data['is_playing'] = False
         return (data)
 
 
-    with open("data.json","w") as f: #in write mode
+    with open("api/data.json","w") as f: #in write mode
         json.dump(current_track,f)
 
     #All the Json output

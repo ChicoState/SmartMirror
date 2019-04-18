@@ -108,11 +108,11 @@ class Example(QWidget):
         #using twitter api
         twitterEvents = twitterAPI.getTrending()
         self.twitterLabel = QLabel(twitterEvents)
-        self.twitter = QLabel(twitterEvents)
 
         self.twitterIcon = QLabel()
         self.twitterIcon.setPixmap(QPixmap("./icons/Twitter.png").scaled(60, 40, Qt.IgnoreAspectRatio, Qt.FastTransformation))
 
+        #using the spotify api
         self.lbl = QtWidgets.QLabel(self)
         self.updateSong()
 
@@ -134,6 +134,10 @@ class Example(QWidget):
 
         self.temp = QLabel("Current Weather condition:" + '\n' + location + ", " + localizedName + "\n" +  str(temp)  + str(tempScale))
 
+        self.apiTimer = QTimer()
+        self.apiTimer.timeout.connect(self.updateAPI)
+        self.apiTimer.start(1000 * 3600) # repeat every hour
+
         # We create a grid layout and set spacing between widgets.
         self.grid = QGridLayout()
         self.grid.setSpacing(10)
@@ -154,7 +158,7 @@ class Example(QWidget):
         self.grid.addWidget(self.calendarIcon, 5, 0)
 
         self.twitterLabel.setStyleSheet(DEFAULT_STYLE);
-        self.twitter.setStyleSheet(DEFAULT_STYLE);
+
 
         self.grid.addWidget(self.twitterLabel, 8, 0)
         self.grid.addWidget(self.twitterIcon, 7, 0)
@@ -231,6 +235,35 @@ class Example(QWidget):
             self.pictureIter = 0
         self.pictureLabel.setPixmap(QPixmap(self.files[self.pictureIter]).scaled(200, 200, QtCore.Qt.KeepAspectRatio))
         self.grid.addWidget(self.pictureLabel, 9, 0)
+
+    def updateAPI(self):
+        numMail = googleAPI.getMail()
+        self.mailLabel = QLabel("Unread: " + str(numMail))
+        self.mail = QLabel(str(numMail))
+
+        calendar = googleAPI.getCalendar()
+        self.calendarLabel = QLabel(calendar)
+
+        twitterEvents = twitterAPI.getTrending()
+        self.twitterLabel = QLabel(twitterEvents)
+
+        icon, temp, tempScale, location ,localizedName \
+            = weather.get_weather()
+
+        icon = 'icons/conditions/' + str(icon) + '.svg'
+
+        self.iconLabel = QLabel(self)
+        pixmap = QPixmap(icon)
+        self.iconLabel.setPixmap(pixmap)
+
+        self.temp = QLabel("Current Weather condition:" + '\n' + location + ", " + localizedName + "\n" +  str(temp)  + str(tempScale))
+
+        self.grid.addWidget(self.mailLabel, 4, 0)
+        self.grid.addWidget(self.calendarLabel, 6, 0)
+        self.grid.addWidget(self.twitterLabel, 8, 0)
+        self.grid.addWidget(self.temp, 1, 0)
+        self.grid.addWidget(self.iconLabel, 2, 0)
+
 
 class Splash(QMainWindow, FROM_SPLASH):
     def __init__(self, parent = None):

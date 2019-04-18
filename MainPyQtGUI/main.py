@@ -20,6 +20,9 @@ from api import googleAPI
 #Twitter API Imports
 from api import twitterAPI
 
+#FireBase
+from firebase import info
+
 #PyQt5 Imports
 from PyQt5 import Qt, QtCore, QtWidgets, QtGui, QtSvg
 from PyQt5.QtCore import *
@@ -178,7 +181,8 @@ class Example(QWidget):
         self.grid.addWidget(self.temp, 1, 0)
         self.grid.addWidget(self.iconLabel, 2, 0)
         #weather
-
+        
+        #Firebase
         self.setLayout(self.grid)
 
         self.setWindowTitle('Smart Mirror')

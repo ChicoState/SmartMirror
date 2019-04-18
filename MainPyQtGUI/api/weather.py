@@ -4,10 +4,14 @@ import urllib.request
 # from config import YOUR_API
 from . import config
 
+from firebase import info
+
 def get_weather():
 
     accuweatherApiKey = config.YOUR_API
-    location_id = "Chico"
+    #location_id = "Chico"
+    head, sep, tail = info.fetchFromDb().partition(',')
+    location_id = head
     locationKey = " "
 
     locationResourceURL = 'https://dataservice.accuweather.com/locations/v1/cities/search?apikey=' + accuweatherApiKey + '&q=' + location_id;

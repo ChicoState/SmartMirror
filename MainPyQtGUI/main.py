@@ -91,13 +91,13 @@ class Example(QWidget, FROM_MAIN):
         self.timer.start(1000) # repeat self.showTime() every 1 sec
 
         # PICTURES TO LOOP THROUGH SECTION
-        self.pictureIter = 0
-        self.files = ["./pictures/a.PNG", "./pictures/b.PNG", "./pictures/c.PNG"]
-        self.pictureLabel = QLabel()
-        self.pictureLabel.setPixmap(QPixmap(self.files[self.pictureIter]).scaled(200, 200, QtCore.Qt.KeepAspectRatio))
-        self.pictureTimer = QTimer()
-        self.pictureTimer.timeout.connect(self.changePicture)
-        self.pictureTimer.start(8000)
+        # self.pictureIter = 0
+        # self.files = ["./pictures/a.PNG", "./pictures/b.PNG", "./pictures/c.PNG"]
+        # self.pictureLabel = QLabel()
+        # self.pictureLabel.setPixmap(QPixmap(self.files[self.pictureIter]).scaled(200, 200, QtCore.Qt.KeepAspectRatio))
+        # self.pictureTimer = QTimer()
+        # self.pictureTimer.timeout.connect(self.changePicture)
+        # self.pictureTimer.start(8000)
 
         #using gmail api
         numMail = googleAPI.getMail()
@@ -174,12 +174,12 @@ class Example(QWidget, FROM_MAIN):
 
         #Spotify
         #self.songs.setStyleSheet(DEFAULT_STYLE);
-        self.grid.addWidget(self.lbl, 9, 5)
-        self.grid.addWidget(self.songs, 10, 5)
-        self.grid.addWidget(self.progress, 10, 6, 1 ,1)
+        self.grid.addWidget(self.lbl, 9, 0)
+        self.grid.addWidget(self.songs, 10, 0)
+        self.grid.addWidget(self.progress, 10, 5, 1 ,1)
         #Spotify
 
-        self.grid.addWidget(self.pictureLabel, 9, 0)
+        # self.grid.addWidget(self.pictureLabel, 9, 0)
 
         #weather
         #self.temp.setStyleSheet(DEFAULT_STYLE);
@@ -234,17 +234,17 @@ class Example(QWidget, FROM_MAIN):
 
         #self.songs.setStyleSheet(DEFAULT_STYLE);
 
-        self.grid.addWidget(self.lbl, 9, 5)
-        self.grid.addWidget(self.songs, 10, 5)
+        self.grid.addWidget(self.lbl, 9, 0)
+        self.grid.addWidget(self.songs, 10, 0)
 
-        self.grid.addWidget(self.progress, 10, 6, 1 ,1)
+        self.grid.addWidget(self.progress, 10, 5, 1, 1)
 
-    def changePicture(self):
-        self.pictureIter += 1
-        if(self.pictureIter == len(self.files)):
-            self.pictureIter = 0
-        self.pictureLabel.setPixmap(QPixmap(self.files[self.pictureIter]).scaled(200, 200, QtCore.Qt.KeepAspectRatio))
-        self.grid.addWidget(self.pictureLabel, 9, 0)
+    # def changePicture(self):
+    #     self.pictureIter += 1
+    #     if(self.pictureIter == len(self.files)):
+    #         self.pictureIter = 0
+    #     self.pictureLabel.setPixmap(QPixmap(self.files[self.pictureIter]).scaled(200, 200, QtCore.Qt.KeepAspectRatio))
+    #     self.grid.addWidget(self.pictureLabel, 9, 0)
 
     def updateAPI(self):
         numMail = googleAPI.getMail()

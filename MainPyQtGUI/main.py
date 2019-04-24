@@ -31,6 +31,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.uic import loadUiType
 
+'''
 DEFAULT_STYLE = """
 QWidget{
     background-color: black;
@@ -49,6 +50,8 @@ QLabel{
     font: 15pt Comic Sans MS
 }
 """
+'''
+
 
 #Splash Screen Function for Process Bar
 class ThreadProgress(QThread):
@@ -65,12 +68,14 @@ class ThreadProgress(QThread):
 
 # Splash Screen StyleSheet
 FROM_SPLASH,_ = loadUiType(os.path.join(os.path.dirname(__file__),"splash.ui"))
+FROM_MAIN,_ = loadUiType(os.path.join(os.path.dirname(__file__),"main.ui"))
 
-class Example(QWidget):
+class Example(QWidget, FROM_MAIN):
     def __init__(self):
         super().__init__()
 
-        self.setStyleSheet(DEFAULT_STYLE)
+        self.setupUi(self)
+        #self.setStyleSheet(DEFAULT_STYLE)
         self.initUI()
 
     def initUI(self):
@@ -146,29 +151,29 @@ class Example(QWidget):
         self.grid = QGridLayout()
         self.grid.setSpacing(10)
 
-        self.labelTime.setStyleSheet(DEFAULT_STYLE);
+        #self.labelTime.setStyleSheet(DEFAULT_STYLE);
 
         self.grid.addWidget(self.labelTime, 0, 0)
 
-        self.mailLabel.setStyleSheet(DEFAULT_STYLE);
-        self.mail.setStyleSheet(DEFAULT_STYLE);
+        #self.mailLabel.setStyleSheet(DEFAULT_STYLE);
+        #self.mail.setStyleSheet(DEFAULT_STYLE);
 
         self.grid.addWidget(self.mailLabel, 4, 0)
         self.grid.addWidget(self.mailIcon, 3, 0)
 
-        self.calendarLabel.setStyleSheet(DEFAULT_STYLE);
+        #self.calendarLabel.setStyleSheet(DEFAULT_STYLE);
 
         self.grid.addWidget(self.calendarLabel, 6, 0)
         self.grid.addWidget(self.calendarIcon, 5, 0)
 
-        self.twitterLabel.setStyleSheet(DEFAULT_STYLE);
+        #self.twitterLabel.setStyleSheet(DEFAULT_STYLE);
 
 
         self.grid.addWidget(self.twitterLabel, 8, 0)
         self.grid.addWidget(self.twitterIcon, 7, 0)
 
         #Spotify
-        self.songs.setStyleSheet(DEFAULT_STYLE);
+        #self.songs.setStyleSheet(DEFAULT_STYLE);
         self.grid.addWidget(self.lbl, 9, 5)
         self.grid.addWidget(self.songs, 10, 5)
         self.grid.addWidget(self.progress, 10, 6, 1 ,1)
@@ -177,7 +182,7 @@ class Example(QWidget):
         self.grid.addWidget(self.pictureLabel, 9, 0)
 
         #weather
-        self.temp.setStyleSheet(DEFAULT_STYLE);
+        #self.temp.setStyleSheet(DEFAULT_STYLE);
 
         self.grid.addWidget(self.temp, 1, 0)
         self.grid.addWidget(self.iconLabel, 2, 0)
@@ -222,12 +227,12 @@ class Example(QWidget):
         self.progress.setGeometry(30, 40, 0, 25)
         self.progress.setFixedWidth(200)
 
-        self.progress.setStyleSheet(DEFAULT_STYLE)
+        #self.progress.setStyleSheet(DEFAULT_STYLE)
 
         self.progress.setMaximum(100)
         self.progress.setValue(data['progress_ms'] * 100 / data['item']['duration_ms'])
 
-        self.songs.setStyleSheet(DEFAULT_STYLE);
+        #self.songs.setStyleSheet(DEFAULT_STYLE);
 
         self.grid.addWidget(self.lbl, 9, 5)
         self.grid.addWidget(self.songs, 10, 5)
@@ -270,7 +275,7 @@ class Example(QWidget):
         self.grid.addWidget(self.iconLabel, 2, 0)
 
 
-class Splash(QMainWindow, FROM_SPLASH):
+class Splash(QMainWindow, FROM_SPLASH, FROM_MAIN):
     def __init__(self, parent = None):
         super(Splash, self).__init__(parent)
         QMainWindow.__init__(self)

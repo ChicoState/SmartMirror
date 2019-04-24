@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+	<class>Widget</class>
+	<widget class="QWidget" name="Widget">
+		
+
+		<property name="styleSheet">
+			<string notr="true">
+				
+				QWidget{
+					background-color: black;
+				}
+				QProgressBar{
+					border: 2px solid white;
+					border-radius: 5px;
+					text-align: center;
+				}
+				QProgressBar::chunk {
+					background-color: #1DB954;
+					width: 10px;
+				}
+				QLabel{
+					color:  #ffffff;
+					font: 15pt;
+				}
+			</string>
+		</property>
+
+		<widget class="QWidget" name="centralwidget">
+			<widget class="QLabel" name="splah_image">
+				<property name="geometry">
+					<rect>
+						<x>260</x>
+						<y>30</y>
+						<width>361</width>
+						<height>301</height>
+					</rect>
+				</property>
+				<property name="text">
+					<string/>
+				</property>
+			</widget>
+			
+		</widget>
+		<widget class="QStatusBar" name="statusbar"/>
+	</widget>
+	<resources/>
+	<connections/>
+</ui>

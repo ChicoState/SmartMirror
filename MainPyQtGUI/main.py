@@ -24,8 +24,8 @@ from api import twitterAPI
 from firebase import info
 
 #PyQt5 Imports
-#from PyQt5 import Qt, QtCore, QtWidgets, QtGui, QtSvg
-from PyQt5 import *
+from PyQt5 import Qt, QtCore, QtWidgets, QtGui, QtSvg
+#from PyQt5 import *
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
@@ -182,7 +182,7 @@ class Example(QWidget):
         self.grid.addWidget(self.temp, 1, 0)
         self.grid.addWidget(self.iconLabel, 2, 0)
         #weather
-        
+
         #Firebase
         self.setLayout(self.grid)
 

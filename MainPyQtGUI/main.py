@@ -185,7 +185,8 @@ class Example(QWidget, FROM_MAIN):
         #self.temp.setStyleSheet(DEFAULT_STYLE);
 
         self.grid.addWidget(self.temp, 1, 0)
-        self.grid.addWidget(self.iconLabel, 2, 0)
+        #self.grid.addWidget(self.iconLabel, 2, 0)
+        self.grid.addWidget(self.iconLabel, 0, 3)
         #weather
 
         #Firebase
@@ -288,15 +289,21 @@ class Splash(QMainWindow, FROM_SPLASH, FROM_MAIN):
         #self.progressBar.setTextVisible(False)
 
         progress.mysignal.connect(self.progress)
+    
         progress.start()
+        self.ex = Example()
+        self.ex.hide()
+
+        
 
     @pyqtSlot(int)
     def progress(self, i):
         self.progressBar.setValue(i)
+
         if i == 100:
             self.hide()
             #exit()                  #Take this out once Splash Screen works
-            self.ex = Example()
+            #self.ex = Example()
             self.ex.show()
 
 def main():

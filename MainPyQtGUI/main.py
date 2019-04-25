@@ -291,7 +291,7 @@ class Example(QWidget, FROM_MAIN):
 class Splash(QMainWindow, FROM_SPLASH, FROM_MAIN):
     def __init__(self, parent = None):
         super(Splash, self).__init__(parent)
-        QMainWindow.__init__(self)
+        # QMainWindow.__init__(self)
         self.setupUi(self)
         pixmap = QPixmap("./icons/splash/IMG_2647.JPG")
 
@@ -304,7 +304,8 @@ class Splash(QMainWindow, FROM_SPLASH, FROM_MAIN):
 
         progress.start()
         self.ex = Example()
-        self.ex.hide()
+        # self.ex = Example()
+        # self.ex.hide()
 
 
 

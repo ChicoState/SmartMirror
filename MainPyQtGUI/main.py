@@ -99,25 +99,20 @@ class Example(QWidget, FROM_MAIN):
         # self.pictureTimer.timeout.connect(self.changePicture)
         # self.pictureTimer.start(8000)
 
-        self.googleChoice = True
-        choice = input("Would you like to use GMail and Google Calendar?[Y/n]")
-        if choice == 'n':
-            self.googleChoice = False
-        #using gmail api
-        if self.googleChoice == True:
-            numMail = googleAPI.getMail()
-            self.mailLabel = QLabel("Unread: " + str(numMail))
-            self.mail = QLabel(str(numMail))
 
-            self.mailIcon = QLabel()
-            self.mailIcon.setPixmap(QPixmap("./icons/GMAIL.png").scaled(40, 40, Qt.IgnoreAspectRatio, Qt.FastTransformation))
+        numMail = googleAPI.getMail()
+        self.mailLabel = QLabel("Unread: " + str(numMail))
+        self.mail = QLabel(str(numMail))
 
-            #using google calendar api
-            calendar = googleAPI.getCalendar()
-            self.calendarLabel = QLabel(calendar)
+        self.mailIcon = QLabel()
+        self.mailIcon.setPixmap(QPixmap("./icons/GMAIL.png").scaled(40, 40, Qt.IgnoreAspectRatio, Qt.FastTransformation))
 
-            self.calendarIcon = QLabel()
-            self.calendarIcon.setPixmap(QPixmap("./icons/CALENDAR.png").scaled(40, 40, Qt.IgnoreAspectRatio, Qt.FastTransformation))
+        #using google calendar api
+        calendar = googleAPI.getCalendar()
+        self.calendarLabel = QLabel(calendar)
+
+        self.calendarIcon = QLabel()
+        self.calendarIcon.setPixmap(QPixmap("./icons/CALENDAR.png").scaled(40, 40, Qt.IgnoreAspectRatio, Qt.FastTransformation))
 
         #using twitter api
         twitterEvents = twitterAPI.getTrending()
@@ -126,18 +121,13 @@ class Example(QWidget, FROM_MAIN):
         self.twitterIcon = QLabel()
         self.twitterIcon.setPixmap(QPixmap("./icons/Twitter.png").scaled(60, 60, Qt.IgnoreAspectRatio, Qt.FastTransformation))
 
-        self.spotifyChoice = True
-        choice = input("Would you like to use Spotify?[Y/n]")
-        if choice == 'n':
-            self.spotifyChoice = False
-        #using the spotify api
-        if self.spotifyChoice == True:
-            self.lbl = QtWidgets.QLabel(self)
-            self.updateSong()
 
-            self.musicTimer = QTimer()
-            self.musicTimer.timeout.connect(self.updateSong)
-            self.musicTimer.start(1000) # repeat self.updateSong() every 1 sec
+        self.lbl = QtWidgets.QLabel(self)
+        self.updateSong()
+
+        self.musicTimer = QTimer()
+        self.musicTimer.timeout.connect(self.updateSong)
+        self.musicTimer.start(1000) # repeat self.updateSong() every 1 sec
 
         #Weather API
         self.weatherIcon = QtWidgets.QLabel(self)
@@ -168,14 +158,13 @@ class Example(QWidget, FROM_MAIN):
         #self.mailLabel.setStyleSheet(DEFAULT_STYLE);
         #self.mail.setStyleSheet(DEFAULT_STYLE);
 
-        if self.googleChoice == True:
-            self.grid.addWidget(self.mailLabel, 4, 0)
-            self.grid.addWidget(self.mailIcon, 3, 0)
+        self.grid.addWidget(self.mailLabel, 4, 0)
+        self.grid.addWidget(self.mailIcon, 3, 0)
 
-            #self.calendarLabel.setStyleSheet(DEFAULT_STYLE);
+        #self.calendarLabel.setStyleSheet(DEFAULT_STYLE);
 
-            self.grid.addWidget(self.calendarLabel, 6, 0)
-            self.grid.addWidget(self.calendarIcon, 5, 0)
+        self.grid.addWidget(self.calendarLabel, 6, 0)
+        self.grid.addWidget(self.calendarIcon, 5, 0)
 
         #self.twitterLabel.setStyleSheet(DEFAULT_STYLE);
 
@@ -185,10 +174,10 @@ class Example(QWidget, FROM_MAIN):
 
         #Spotify
         #self.songs.setStyleSheet(DEFAULT_STYLE);
-        if self.spotifyChoice == True:
-            self.grid.addWidget(self.lbl, 9, 0)
-            self.grid.addWidget(self.songs, 10, 0)
-            self.grid.addWidget(self.progress, 10, 5, 1 ,1)
+
+        self.grid.addWidget(self.lbl, 9, 0)
+        self.grid.addWidget(self.songs, 10, 0)
+        self.grid.addWidget(self.progress, 10, 5, 1 ,1)
         #Spotify
 
         # self.grid.addWidget(self.pictureLabel, 9, 0)
@@ -301,11 +290,11 @@ class Splash(QMainWindow, FROM_SPLASH, FROM_MAIN):
         #self.progressBar.setTextVisible(False)
 
         progress.mysignal.connect(self.progress)
-    
-        progress.start()
-        
 
-        
+        progress.start()
+
+
+
 
     @pyqtSlot(int)
     def progress(self, i):

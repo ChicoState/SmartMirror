@@ -119,7 +119,7 @@ class Example(QWidget, FROM_MAIN):
         self.twitterLabel = QLabel(twitterEvents)
 
         self.twitterIcon = QLabel()
-        self.twitterIcon.setPixmap(QPixmap("./icons/Twitter.png").scaled(60, 40, Qt.IgnoreAspectRatio, Qt.FastTransformation))
+        self.twitterIcon.setPixmap(QPixmap("./icons/Twitter.png").scaled(60, 60, Qt.IgnoreAspectRatio, Qt.FastTransformation))
 
         #using the spotify api
         self.lbl = QtWidgets.QLabel(self)
@@ -291,8 +291,7 @@ class Splash(QMainWindow, FROM_SPLASH, FROM_MAIN):
         progress.mysignal.connect(self.progress)
     
         progress.start()
-        self.ex = Example()
-        self.ex.hide()
+        
 
         
 
@@ -303,7 +302,7 @@ class Splash(QMainWindow, FROM_SPLASH, FROM_MAIN):
         if i == 100:
             self.hide()
             #exit()                  #Take this out once Splash Screen works
-            #self.ex = Example()
+            self.ex = Example()
             self.ex.show()
 
 def main():

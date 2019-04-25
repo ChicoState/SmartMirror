@@ -13,14 +13,22 @@ def get_weather():
     head, sep, tail = info.fetchFromDb().partition(',')
     location_id = head
     locationKey = " "
+    location_data = ''
 
-    locationResourceURL = 'https://dataservice.accuweather.com/locations/v1/cities/search?apikey=' + accuweatherApiKey + '&q=' + location_id;
-    data = " "
+    try:
+        locationResourceURL = 'https://dataservice.accuweather.com/locations/v1/cities/search?apikey=' + accuweatherApiKey + '&q=' + location_id;
+        data = " "
 
-    with urllib.request.urlopen(locationResourceURL) as url:
-        location_data = json.loads(url.read().decode())
-        locationKey = location_data[0]["Key"]
+        with urllib.request.urlopen(locationResourceURL) as url:
+            location_data = json.loads(url.read().decode())
+            locationKey = location_data[0]["Key"]
+    except:
+        location_id = 'chico'
+        locationResourceURL = 'https://dataservice.accuweather.com/locations/v1/cities/search?apikey=' + accuweatherApiKey + '&q=' + location_id;
 
+        with urllib.request.urlopen(locationResourceURL) as url:
+            location_data = json.loads(url.read().decode())
+            locationKey = location_data[0]["Key"]
 
     currentConditionsResourceURL = 'https://dataservice.accuweather.com/currentconditions/v1/' + locationKey + '?apikey=' + accuweatherApiKey + '&details=true';
 

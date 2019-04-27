@@ -24,7 +24,7 @@ from api import twitterAPI
 from firebase import info
 
 #PyQt5 Imports
-from PyQt5 import Qt, QtCore, QtWidgets, QtGui, QtSvg
+from PyQt5 import Qt, QtCore, QtWidgets, QtGui
 #from PyQt5 import *
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
@@ -105,7 +105,7 @@ class Example(QWidget, FROM_MAIN):
         self.mail = QLabel(str(numMail))
 
         self.mailIcon = QLabel()
-        self.mailIcon.setPixmap(QPixmap("./icons/GMAIL.png").scaled(40, 40, Qt.IgnoreAspectRatio, Qt.FastTransformation))
+        self.mailIcon.setPixmap(QPixmap("./icons/GMAIL.png").scaled(35, 35, Qt.IgnoreAspectRatio, Qt.FastTransformation))
 
         #using google calendar api
         calendar = googleAPI.getCalendar()
@@ -119,7 +119,8 @@ class Example(QWidget, FROM_MAIN):
         self.twitterLabel = QLabel(twitterEvents)
 
         self.twitterIcon = QLabel()
-        self.twitterIcon.setPixmap(QPixmap("./icons/Twitter.png").scaled(60, 60, Qt.IgnoreAspectRatio, Qt.FastTransformation))
+        #self.twitterIcon.setPixmap(QPixmap("./icons/Twitter.png").scaled(60, 60, Qt.IgnoreAspectRatio, Qt.FastTransformation))
+        self.twitterIcon.setPixmap(QPixmap("./icons/Twitter.png").scaled(40, 40, Qt.IgnoreAspectRatio, Qt.FastTransformation))
 
 
         self.lbl = QtWidgets.QLabel(self)
@@ -130,7 +131,8 @@ class Example(QWidget, FROM_MAIN):
         self.musicTimer.start(1000) # repeat self.updateSong() every 1 sec
 
         #Weather API
-        self.weatherIcon = QtWidgets.QLabel(self)
+
+        #self.weatherIcon = QtWidgets.QLabel(self)
 
         icon, temp, tempScale, location ,localizedName \
             = weather.get_weather()
@@ -138,22 +140,28 @@ class Example(QWidget, FROM_MAIN):
         icon = 'icons/conditions/' + str(icon) + '.svg'
 
         self.iconLabel = QLabel(self)
+
         pixmap = QPixmap(icon)
         self.iconLabel.setPixmap(pixmap)
 
-        self.temp = QLabel("Current Weather Condition:" + '\n' + location.lower() + ", " + localizedName.lower() + "\n" +  str(temp)  + str(tempScale))
+        self.temp = QLabel(location.lower() + ", " + localizedName.lower() + "\n" +  str(temp)  + str(tempScale))
 
         self.apiTimer = QTimer()
         self.apiTimer.timeout.connect(self.updateAPI)
         self.apiTimer.start(1000 * 3600) # repeat every hour
 
         # We create a grid layout and set spacing between widgets.
-        self.grid = QGridLayout()
-        self.grid.setSpacing(10)
+        #self.grid = QGridLayout()
+        #self.grid.setSpacing(30)
 
         #self.labelTime.setStyleSheet(DEFAULT_STYLE);
+        #self.padding = QLabel("")
+        #self.grid.addWidget(self.padding, 0, 1)
 
-        self.grid.addWidget(self.labelTime, 0, 0)
+        self.labelTime.setAlignment(QtCore.Qt.AlignRight)
+        self.labelTime.setStyleSheet("font: 17pt; color: white")
+
+        self.grid.addWidget(self.labelTime, 0, 1)
 
         #self.mailLabel.setStyleSheet(DEFAULT_STYLE);
         #self.mail.setStyleSheet(DEFAULT_STYLE);
@@ -174,20 +182,26 @@ class Example(QWidget, FROM_MAIN):
 
         #Spotify
         #self.songs.setStyleSheet(DEFAULT_STYLE);
-
+        
         self.grid.addWidget(self.lbl, 9, 0)
         self.grid.addWidget(self.songs, 10, 0)
-        self.grid.addWidget(self.progress, 10, 5, 1 ,1)
+        #self.grid.addWidget(self.progress, 10, 5, 1 ,1)
+        
+        self.grid.addWidget(self.progress, 11, 0, 1, 1)
+        
         #Spotify
 
         # self.grid.addWidget(self.pictureLabel, 9, 0)
 
         #weather
         #self.temp.setStyleSheet(DEFAULT_STYLE);
+        
 
         self.grid.addWidget(self.temp, 1, 0)
-        #self.grid.addWidget(self.iconLabel, 2, 0)
-        self.grid.addWidget(self.iconLabel, 0, 3)
+
+        
+        self.grid.addWidget(self.iconLabel, 0, 0)
+
         #weather
 
         #Firebase
@@ -225,10 +239,15 @@ class Example(QWidget, FROM_MAIN):
         self.songs = QLabel(status + " " + data['item']['album']['artists'][0]['name'] + " - " + data['item']['name'])
 
         self.progress = QProgressBar()
-        self.progress.setTextVisible(False)
-        self.progress.setGeometry(30, 40, 0, 25)
-        self.progress.setFixedWidth(200)
 
+        self.progress.setTextVisible(False)
+
+        
+        
+        #self.progress.setGeometry(30, 40, 0, 25)
+        
+        self.progress.setFixedWidth(300)
+        
         #self.progress.setStyleSheet(DEFAULT_STYLE)
 
         self.progress.setMaximum(100)
@@ -239,7 +258,9 @@ class Example(QWidget, FROM_MAIN):
         self.grid.addWidget(self.lbl, 9, 0)
         self.grid.addWidget(self.songs, 10, 0)
 
-        self.grid.addWidget(self.progress, 10, 5, 1, 1)
+        #self.grid.addWidget(self.progress, 10, 5, 1, 1)
+        self.grid.addWidget(self.progress, 11, 0, 1, 1)
+        
 
     # def changePicture(self):
     #     self.pictureIter += 1

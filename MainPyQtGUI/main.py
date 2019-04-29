@@ -303,9 +303,12 @@ class Splash(QMainWindow, FROM_SPLASH, FROM_MAIN):
         super(Splash, self).__init__(parent)
         QMainWindow.__init__(self)
         self.setupUi(self)
+
+        self.showMaximized()        #Show Splashcreen full Screeen instead
         pixmap = QPixmap("./icons/splash/IMG_2647.JPG")
 
         self.splah_image.setPixmap(pixmap.scaled(350, 350))
+        self.splah_image.setAlignment(Qt.AlignVCenter)
 
         progress = ThreadProgress(self)
         #self.progressBar.setTextVisible(False)

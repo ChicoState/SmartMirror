@@ -9,7 +9,6 @@ from firebase import info
 def get_weather():
 
     accuweatherApiKey = config.YOUR_API
-    #location_id = "Chico"
     head, sep, tail = info.fetchFromDb().partition(',')
     location_id = head
     locationKey = " "
@@ -23,7 +22,7 @@ def get_weather():
             location_data = json.loads(url.read().decode())
             locationKey = location_data[0]["Key"]
     except:
-        location_id = 'chico'
+        location_id = 'Chico'
         locationResourceURL = 'https://dataservice.accuweather.com/locations/v1/cities/search?apikey=' + accuweatherApiKey + '&q=' + location_id;
 
         with urllib.request.urlopen(locationResourceURL) as url:

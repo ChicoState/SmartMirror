@@ -31,28 +31,6 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.uic import loadUiType
 
-'''
-DEFAULT_STYLE = """
-QWidget{
-    background-color: black;
-}
-QProgressBar{
-    border: 2px solid grey;
-    border-radius: 5px;
-    text-align: center
-}
-QProgressBar::chunk {
-    background-color: white;
-    width: 10px;
-}
-QLabel{
-    color:  #ffffff;
-    font: 15pt Comic Sans MS
-}
-"""
-'''
-
-
 #Splash Screen Function for Process Bar
 class ThreadProgress(QThread):
     mysignal = pyqtSignal(int)
@@ -75,13 +53,11 @@ class Example(QWidget, FROM_MAIN):
         super().__init__()
 
         self.setupUi(self)
-        #self.setStyleSheet(DEFAULT_STYLE)
         self.initUI()
 
     def initUI(self):
 
         self.grid = QGridLayout()
-        #self.setGeometry(10,10,1400,1400)
 
         self.labelTime = QLabel()
         self.showTime()
@@ -90,17 +66,9 @@ class Example(QWidget, FROM_MAIN):
         self.timer.timeout.connect(self.showTime)
         self.timer.start(1000) # repeat self.showTime() every 1 sec
 
-        # PICTURES TO LOOP THROUGH SECTION
-        # self.pictureIter = 0
-        # self.files = ["./pictures/a.PNG", "./pictures/b.PNG", "./pictures/c.PNG"]
-        # self.pictureLabel = QLabel()
-        # self.pictureLabel.setPixmap(QPixmap(self.files[self.pictureIter]).scaled(200, 200, QtCore.Qt.KeepAspectRatio))
-        # self.pictureTimer = QTimer()
-        # self.pictureTimer.timeout.connect(self.changePicture)
-        # self.pictureTimer.start(8000)
-
-
+        #using google mail api
         numMail = googleAPI.getMail()
+
         self.mailLabel = QLabel("Unread: " + str(numMail))
         self.mail = QLabel(str(numMail))
 
@@ -115,36 +83,30 @@ class Example(QWidget, FROM_MAIN):
         self.calendarIcon.setPixmap(QPixmap("./icons/CALENDAR.png").scaled(40, 40, Qt.IgnoreAspectRatio, Qt.FastTransformation))
 
         #using twitter api
-        twitterEvents = twitterAPI.getTrending()
+        twitterEvents = ''
+        try:
+            twitterEvents = twitterAPI.getTrending()
+        except:
+            twitterEvents = "Failed to retrieve data."
         self.twitterLabel = QLabel(twitterEvents)
 
         self.twitterIcon = QLabel()
-        #self.twitterIcon.setPixmap(QPixmap("./icons/Twitter.png").scaled(60, 60, Qt.IgnoreAspectRatio, Qt.FastTransformation))
         self.twitterIcon.setPixmap(QPixmap("./icons/Twitter.png").scaled(40, 40, Qt.IgnoreAspectRatio, Qt.FastTransformation))
 
+        #using spotify api
+        try:
+            self.lbl = QtWidgets.QLabel(self)
+            self.updateSong()
 
-        self.lbl = QtWidgets.QLabel(self)
-        self.updateSong()
-
-        self.musicTimer = QTimer()
-        self.musicTimer.timeout.connect(self.updateSong)
-        self.musicTimer.start(1000) # repeat self.updateSong() every 1 sec
+            self.musicTimer = QTimer()
+            self.musicTimer.timeout.connect(self.updateSong)
+            self.musicTimer.start(1000) # repeat self.updateSong() every 1 sec
+        except:
+            self.lbl = QLabel("Spotify cannot connect.")
 
         #Weather API
-
-        #self.weatherIcon = QtWidgets.QLabel(self)
-
         icon, temp, tempScale, location ,localizedName \
             = weather.get_weather()
-
-        #-----------------
-        #icon = 'icons/conditions/' + str(icon) + '.svg'
-
-        #self.iconLabel = QLabel(self)
-
-        #pixmap = QPixmap(icon)
-        #self.iconLabel.setPixmap(pixmap)
-        #-----------------
 
         self.temp = QLabel(location.lower() + ", " + localizedName.lower() + "\n" +  str(temp)  + str(tempScale))
 
@@ -153,37 +115,6 @@ class Example(QWidget, FROM_MAIN):
         self.apiTimer.start(1000 * 3600) # repeat every hour
 
 
-        '''
-        self.labelTime.setAlignment(QtCore.Qt.AlignRight)
-        self.labelTime.setStyleSheet("font: 12pt; color: white")
-
-        self.grid.addWidget(self.labelTime, 0, 1)
-
-        self.grid.addWidget(self.mailLabel, 4, 0)
-        self.grid.addWidget(self.mailIcon, 3, 0)
-
-
-        self.grid.addWidget(self.calendarLabel, 6, 0)
-        self.grid.addWidget(self.calendarIcon, 5, 0)
-
-
-
-        self.grid.addWidget(self.twitterLabel, 8, 0)
-        self.grid.addWidget(self.twitterIcon, 7, 0)
-
-        #Spotify
-        self.grid.addWidget(self.lbl, 9, 0)
-        self.grid.addWidget(self.songs, 10, 0)
-        self.grid.addWidget(self.progress, 10, 1, 1, 1)
-        #Spotify
-
-        #weather
-        self.grid.addWidget(self.temp, 1, 0)
-        self.grid.addWidget(self.temp, 0, 0)
-
-        self.grid.addWidget(self.iconLabel, 0, 0)
-        #weather
-        '''
         self.labelTime.setAlignment(QtCore.Qt.AlignRight)
         self.labelTime.setStyleSheet("font: 12pt; color: white")
 
@@ -208,13 +139,8 @@ class Example(QWidget, FROM_MAIN):
         #Spotify
 
         #weather
-        #self.grid.addWidget(self.temp, 1, 0)
         self.grid.addWidget(self.temp, 0, 0)
 
-        #self.grid.addWidget(self.iconLabel, 0, 0)
-        #weather
-
-        #Firebase
         self.setLayout(self.grid)
 
         self.setWindowTitle('Smart Mirror')
@@ -236,7 +162,6 @@ class Example(QWidget, FROM_MAIN):
 
         self.lbl.adjustSize()
 
-        #pixmap4 = image.scaled(200, 200, QtCore.Qt.KeepAspectRatio)
         pixmap4 = image.scaled(150, 150, QtCore.Qt.KeepAspectRatio)
 
         self.lbl.setPixmap(QtGui.QPixmap(pixmap4))
@@ -254,30 +179,14 @@ class Example(QWidget, FROM_MAIN):
 
         self.progress.setTextVisible(False)
 
-        
-        #self.progress.setGeometry(0, 0, 306, 30)
         self.progress.setFixedWidth(400)
-        
+
         self.progress.setMaximum(100)
         self.progress.setValue(data['progress_ms'] * 100 / data['item']['duration_ms'])
 
-        '''
-        self.grid.addWidget(self.lbl, 9, 0)
-        self.grid.addWidget(self.songs, 10, 0)
-        self.grid.addWidget(self.progress, 10, 1, 1, 1)
-        '''
-        
         self.grid.addWidget(self.lbl, 7, 0)
         self.grid.addWidget(self.songs, 8, 0)
         self.grid.addWidget(self.progress, 9, 0, 1, 1)
-
-
-    # def changePicture(self):
-    #     self.pictureIter += 1
-    #     if(self.pictureIter == len(self.files)):
-    #         self.pictureIter = 0
-    #     self.pictureLabel.setPixmap(QPixmap(self.files[self.pictureIter]).scaled(200, 200, QtCore.Qt.KeepAspectRatio))
-    #     self.grid.addWidget(self.pictureLabel, 9, 0)
 
     def updateAPI(self):
         numMail = googleAPI.getMail()
@@ -321,14 +230,10 @@ class Splash(QMainWindow, FROM_SPLASH, FROM_MAIN):
         self.splah_image.setAlignment(Qt.AlignVCenter)
 
         progress = ThreadProgress(self)
-        #self.progressBar.setTextVisible(False)
 
         progress.mysignal.connect(self.progress)
 
         progress.start()
-
-
-
 
     @pyqtSlot(int)
     def progress(self, i):
@@ -336,7 +241,6 @@ class Splash(QMainWindow, FROM_SPLASH, FROM_MAIN):
 
         if i == 100:
             self.hide()
-            #exit()                  #Take this out once Splash Screen works
             self.ex = Example()
             self.ex.show()
 
@@ -344,7 +248,6 @@ def main():
     app=QApplication(sys.argv)
     window = Splash()
     window.show()
-    #app.exec_()
     sys.exit(app.exec_())
 
 if __name__ == '__main__':

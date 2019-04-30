@@ -79,6 +79,3 @@ def getCalendar():
         start = event['start'].get('dateTime', event['start'].get('date'))
         eventlist += str(start) + ' ' + str(event['summary']) + '\n'
     return eventlist
-
-# print(str(getMail()))
-# print(str(getCalendar()))

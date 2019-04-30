@@ -137,12 +137,14 @@ class Example(QWidget, FROM_MAIN):
         icon, temp, tempScale, location ,localizedName \
             = weather.get_weather()
 
-        icon = 'icons/conditions/' + str(icon) + '.svg'
+        #-----------------
+        #icon = 'icons/conditions/' + str(icon) + '.svg'
 
-        self.iconLabel = QLabel(self)
+        #self.iconLabel = QLabel(self)
 
-        pixmap = QPixmap(icon)
-        self.iconLabel.setPixmap(pixmap)
+        #pixmap = QPixmap(icon)
+        #self.iconLabel.setPixmap(pixmap)
+        #-----------------
 
         self.temp = QLabel(location.lower() + ", " + localizedName.lower() + "\n" +  str(temp)  + str(tempScale))
 
@@ -150,58 +152,66 @@ class Example(QWidget, FROM_MAIN):
         self.apiTimer.timeout.connect(self.updateAPI)
         self.apiTimer.start(1000 * 3600) # repeat every hour
 
-        # We create a grid layout and set spacing between widgets.
-        #self.grid = QGridLayout()
-        #self.grid.setSpacing(30)
 
-        #self.labelTime.setStyleSheet(DEFAULT_STYLE);
-        #self.padding = QLabel("")
-        #self.grid.addWidget(self.padding, 0, 1)
-
+        '''
         self.labelTime.setAlignment(QtCore.Qt.AlignRight)
-        self.labelTime.setStyleSheet("font: 17pt; color: white")
+        self.labelTime.setStyleSheet("font: 12pt; color: white")
 
         self.grid.addWidget(self.labelTime, 0, 1)
-
-        #self.mailLabel.setStyleSheet(DEFAULT_STYLE);
-        #self.mail.setStyleSheet(DEFAULT_STYLE);
 
         self.grid.addWidget(self.mailLabel, 4, 0)
         self.grid.addWidget(self.mailIcon, 3, 0)
 
-        #self.calendarLabel.setStyleSheet(DEFAULT_STYLE);
 
         self.grid.addWidget(self.calendarLabel, 6, 0)
         self.grid.addWidget(self.calendarIcon, 5, 0)
 
-        #self.twitterLabel.setStyleSheet(DEFAULT_STYLE);
 
 
         self.grid.addWidget(self.twitterLabel, 8, 0)
         self.grid.addWidget(self.twitterIcon, 7, 0)
 
         #Spotify
-        #self.songs.setStyleSheet(DEFAULT_STYLE);
-        
         self.grid.addWidget(self.lbl, 9, 0)
         self.grid.addWidget(self.songs, 10, 0)
-        #self.grid.addWidget(self.progress, 10, 5, 1 ,1)
-        
-        self.grid.addWidget(self.progress, 11, 0, 1, 1)
-        
+        self.grid.addWidget(self.progress, 10, 1, 1, 1)
         #Spotify
 
-        # self.grid.addWidget(self.pictureLabel, 9, 0)
+        #weather
+        self.grid.addWidget(self.temp, 1, 0)
+        self.grid.addWidget(self.temp, 0, 0)
+
+        self.grid.addWidget(self.iconLabel, 0, 0)
+        #weather
+        '''
+        self.labelTime.setAlignment(QtCore.Qt.AlignRight)
+        self.labelTime.setStyleSheet("font: 12pt; color: white")
+
+        self.grid.addWidget(self.labelTime, 0, 1)
+
+        self.grid.addWidget(self.mailLabel, 2, 0)
+        self.grid.addWidget(self.mailIcon, 1, 0)
+
+
+        self.grid.addWidget(self.calendarLabel, 4, 0)
+        self.grid.addWidget(self.calendarIcon, 3, 0)
+
+
+
+        self.grid.addWidget(self.twitterLabel, 6, 0)
+        self.grid.addWidget(self.twitterIcon, 5, 0)
+
+        #Spotify
+        self.grid.addWidget(self.lbl, 7, 0)
+        self.grid.addWidget(self.songs, 8, 0)
+        self.grid.addWidget(self.progress, 9, 0, 1, 1)
+        #Spotify
 
         #weather
-        #self.temp.setStyleSheet(DEFAULT_STYLE);
-        
+        #self.grid.addWidget(self.temp, 1, 0)
+        self.grid.addWidget(self.temp, 0, 0)
 
-        self.grid.addWidget(self.temp, 1, 0)
-
-        
-        self.grid.addWidget(self.iconLabel, 0, 0)
-
+        #self.grid.addWidget(self.iconLabel, 0, 0)
         #weather
 
         #Firebase
@@ -226,7 +236,9 @@ class Example(QWidget, FROM_MAIN):
 
         self.lbl.adjustSize()
 
-        pixmap4 = image.scaled(200, 200, QtCore.Qt.KeepAspectRatio)
+        #pixmap4 = image.scaled(200, 200, QtCore.Qt.KeepAspectRatio)
+        pixmap4 = image.scaled(150, 150, QtCore.Qt.KeepAspectRatio)
+
         self.lbl.setPixmap(QtGui.QPixmap(pixmap4))
 
         status = " "
@@ -243,24 +255,22 @@ class Example(QWidget, FROM_MAIN):
         self.progress.setTextVisible(False)
 
         
+        #self.progress.setGeometry(0, 0, 306, 30)
+        self.progress.setFixedWidth(400)
         
-        #self.progress.setGeometry(30, 40, 0, 25)
-        
-        self.progress.setFixedWidth(300)
-        
-        #self.progress.setStyleSheet(DEFAULT_STYLE)
-
         self.progress.setMaximum(100)
         self.progress.setValue(data['progress_ms'] * 100 / data['item']['duration_ms'])
 
-        #self.songs.setStyleSheet(DEFAULT_STYLE);
-
+        '''
         self.grid.addWidget(self.lbl, 9, 0)
         self.grid.addWidget(self.songs, 10, 0)
-
-        #self.grid.addWidget(self.progress, 10, 5, 1, 1)
-        self.grid.addWidget(self.progress, 11, 0, 1, 1)
+        self.grid.addWidget(self.progress, 10, 1, 1, 1)
+        '''
         
+        self.grid.addWidget(self.lbl, 7, 0)
+        self.grid.addWidget(self.songs, 8, 0)
+        self.grid.addWidget(self.progress, 9, 0, 1, 1)
+
 
     # def changePicture(self):
     #     self.pictureIter += 1

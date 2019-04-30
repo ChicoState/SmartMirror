@@ -20,7 +20,7 @@
 				}
 				QLabel{
 					color:  #ffffff;
-					font: 15pt;
+					font: 10pt;
 				}
 			</string>
 		</property>

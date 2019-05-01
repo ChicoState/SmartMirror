@@ -228,7 +228,7 @@ class Example(QWidget, FROM_MAIN):
 
         self.progress.setTextVisible(False)
 
-        self.progress.setFixedWidth(300)
+        self.progress.setFixedWidth(200)
         self.progress.setFixedHeight(15)
 
         self.progress.setMaximum(100)

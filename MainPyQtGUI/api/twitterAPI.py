@@ -13,7 +13,7 @@ def getTrending():
     num = 0
     for location in results:
         for trend in location["trends"]:
-            if num < 5:
+            if num < 3:
                 trendList += str(trend["name"]) + '\n'
             num += 1
     return trendList

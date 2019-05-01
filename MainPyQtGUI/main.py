@@ -116,8 +116,56 @@ class Example(QWidget, FROM_MAIN):
 
 
         self.labelTime.setAlignment(QtCore.Qt.AlignRight)
-        self.labelTime.setStyleSheet("font: 12pt; color: white")
 
+        self.labelTime.setStyleSheet("font: 15pt; color: white")
+
+        
+        #--------
+
+        #self.paddingLeft = Qlabel(" ")
+        #self.grid.addWidget(self.paddingLeft, 0, 0)
+        self.grid.setVerticalSpacing(0)
+
+        self.paddingLeft = QLabel(" ")
+        self.paddingLeft.setStyleSheet("font: 3pt; color: black")
+        
+        self.grid.addWidget(self.paddingLeft, 0, 0)
+
+        #weather
+        self.temp.setMargin(0)
+        self.grid.addWidget(self.temp, 1, 0)
+
+        #Time
+        self.labelTime.setMargin(0)
+        self.grid.addWidget(self.labelTime, 1, 1)
+
+        #Mail
+        self.mailIcon.setMargin(0)
+        self.grid.addWidget(self.mailIcon, 2, 0)
+        self.mailLabel.setMargin(0)
+        self.grid.addWidget(self.mailLabel, 3, 0)
+
+
+        #Calendar
+        self.calendarIcon.setMargin(0)
+        self.grid.addWidget(self.calendarIcon, 4, 0)
+        self.calendarLabel.setMargin(0)
+        self.grid.addWidget(self.calendarLabel, 5, 0)
+
+        #Twitter
+        self.twitterIcon.setMargin(0)
+        self.grid.addWidget(self.twitterIcon, 6, 0)
+        self.twitterLabel.setMargin(0)
+        self.grid.addWidget(self.twitterLabel, 7, 0)
+
+        #Spotify
+        self.grid.addWidget(self.lbl, 8, 0)
+        self.grid.addWidget(self.songs, 9, 0)
+        self.grid.addWidget(self.progress, 10, 0)
+        #Spotify
+
+
+        '''
         self.grid.addWidget(self.labelTime, 0, 1)
 
         self.grid.addWidget(self.mailLabel, 2, 0)
@@ -140,6 +188,7 @@ class Example(QWidget, FROM_MAIN):
 
         #weather
         self.grid.addWidget(self.temp, 0, 0)
+        '''
 
         self.setLayout(self.grid)
 
@@ -162,7 +211,7 @@ class Example(QWidget, FROM_MAIN):
 
         self.lbl.adjustSize()
 
-        pixmap4 = image.scaled(150, 150, QtCore.Qt.KeepAspectRatio)
+        pixmap4 = image.scaled(200, 200, QtCore.Qt.KeepAspectRatio)
 
         self.lbl.setPixmap(QtGui.QPixmap(pixmap4))
 
@@ -179,14 +228,15 @@ class Example(QWidget, FROM_MAIN):
 
         self.progress.setTextVisible(False)
 
-        self.progress.setFixedWidth(400)
+        self.progress.setFixedWidth(300)
+        self.progress.setFixedHeight(15)
 
         self.progress.setMaximum(100)
         self.progress.setValue(data['progress_ms'] * 100 / data['item']['duration_ms'])
 
-        self.grid.addWidget(self.lbl, 7, 0)
-        self.grid.addWidget(self.songs, 8, 0)
-        self.grid.addWidget(self.progress, 9, 0, 1, 1)
+        self.grid.addWidget(self.lbl, 8, 0)
+        self.grid.addWidget(self.songs, 9, 0)
+        self.grid.addWidget(self.progress, 10, 0, 1, 1)
 
     def updateAPI(self):
         numMail = googleAPI.getMail()
